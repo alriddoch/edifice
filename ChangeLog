@@ -1,3 +1,8 @@
+2004-02-04  Ron Steinke  <rsteinke@w-link.net>
+
+	* configure.in, acinclude.m4: Use new combined macro for libz, libpng,
+	  SDL and SDL_image check that will also work under win32.
+
 2003-12-03  Al Riddoch  <alriddoch@zepler.org>
 
 	* src/edifice.cpp: Remove unused variables.
