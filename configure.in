@@ -43,9 +43,11 @@ SDL_VERSION=1.2.0
 WF_CHECK_SDL_IMAGE($SDL_VERSION)
 dnl add flags later so we don't cause issues with SDL_main
 
+AC_LANG_PUSH(C)
+
 AC_CHECK_LIB(GL,OSMesaCreateContext, ,
     [
-        AC_CHECK_LIB(opengl32,glViewport, ,
+        AC_CHECK_LIB(opengl32,OSMesaCreateContext, ,
             [
                 AC_CHECK_LIB(OSMesa,OSMesaCreateContext, ,
                     [
@@ -53,6 +55,8 @@ AC_CHECK_LIB(GL,OSMesaCreateContext, ,
                     ])
             ])
     ])
+
+AC_LANG_POP(C)
 
 AC_CHECK_LIB(GLU,gluPerspective, [ LIBS="$LIBS -lGLU" ],
     AC_CHECK_LIB(glu32,gluPerspective, [ LIBS="$LIBS -lglu32" ],
