@@ -6,7 +6,7 @@ echo aclocal...
     exit 1
 }
 
-aclocal
+aclocal $ACLOCAL_FLAGS
 
 echo autoheader...
 (autoheader --version) < /dev/null > /dev/null 2>&1 || {
@@ -22,7 +22,7 @@ echo libtoolize...
     exit 1
 }
 
-libtoolize --automake --copy --force
+libtoolize --automake --force --copy
 
 echo automake...
 (automake --version) < /dev/null > /dev/null 2>&1 || {
@@ -40,6 +40,11 @@ echo autoconf...
 
 autoconf
 
-./configure $@
+if test "x$NOCONFIGURE" = "x" ; then
+    CONFIGUREFLAGS="--enable-maintainer-mode=yes --enable-debug=yes $@"
+    echo Running: configure $CONFIGUREFLAGS
+    ./configure $CONFIGUREFLAGS
+fi
+
 
 exit 0
