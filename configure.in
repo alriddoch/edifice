@@ -92,9 +92,12 @@ LIBS="$LIBS $SDL_LIBS"
 
 AC_CHECK_LIB(SDL_image,IMG_Load)
 AC_CHECK_LIB(GL,OSMesaCreateContext, ,
-[
-    AC_MSG_ERROR(Unable to find OSMesaCreateContext in libGL. Your OpenGL implementation must be Mesa for edifice to work.)
-])
+    [
+        AC_CHECK_LIB(OSMesa,OSMesaCreateContext, ,
+            [
+                AC_MSG_ERROR(Unable to find OSMesa in libGL or libOSMesa. Please make sure Mesa is available.)
+            ])
+    ])
 AC_CHECK_LIB(GLU,main)
 AC_CHECK_LIB(glut,main)
 

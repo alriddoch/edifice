@@ -1,3 +1,7 @@
+2003-06-24  Al Riddoch  <alriddoch@zepler.org>
+
+	* Modify check so OSMesa can be detected in its own lib.
+
 2003-06-23  Al Riddoch  <alriddoch@zepler.org>
 
 	* src/edifice.cpp, src/edifice.h: Update for strict ISO C++.
