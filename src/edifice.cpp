@@ -6,6 +6,8 @@
 
 #include <GL/glut.h>
 
+#include <iostream>
+
 extern "C" {
     #include <stdio.h>
     #include <fcntl.h>
@@ -42,7 +44,7 @@ Renderer::~Renderer()
     }
 }
 
-bool Renderer::loadTexture(const string & name, const string & file)
+bool Renderer::loadTexture(const std::string & name, const std::string & file)
 // This code was created by Jeff Molofee '99
 // (ported to SDL by Sam Lantinga '2000)
 //
@@ -55,7 +57,7 @@ bool Renderer::loadTexture(const string & name, const string & file)
 
     image = IMG_Load(file.c_str());
     if ( image == NULL ) {
-        cout << "Failed to load image" << endl << flush;
+        std::cout << "Failed to load image" << std::endl << std::flush;
         throw SDLError();
     }
 
@@ -65,7 +67,7 @@ bool Renderer::loadTexture(const string & name, const string & file)
 
     if(bpp != 24 && bpp != 32) {
         SDL_FreeSurface(image);
-        cout << "Image bpp is " << bpp << endl << flush;
+        std::cout << "Image bpp is " << bpp << std::endl << std::flush;
         throw SDLError();
     }
 
@@ -77,10 +79,10 @@ bool Renderer::loadTexture(const string & name, const string & file)
     //glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     glTexImage2D(GL_TEXTURE_2D, 0, format, image->w, image->h, 0,
                  format, GL_UNSIGNED_BYTE, image->pixels);
-    cout << image->w << " " << image->h << endl << flush;
+    std::cout << image->w << " " << image->h << std::endl << std::flush;
     int foo;
     if ((foo = glGetError()) != 0) {
-        cout << "Texture installation failed" << foo << endl << flush;
+        std::cout << "Texture installation failed" << foo << std::endl << std::flush;
         throw GLError();
     }
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
@@ -126,7 +128,7 @@ SDL_Surface * Renderer::imageTransform(SDL_Surface * image)
 
 void Renderer::render(double x, double y, double z)
 {
-    cout << "Render" << endl << flush;
+    std::cout << "Render" << std::endl << std::flush;
 
     // Light parameters
     GLfloat light_ambient[] = { 0.0, 0.0, 0.0, 1.0 };
@@ -192,7 +194,7 @@ void Renderer::render(double x, double y, double z)
     glPopMatrix();
 }
 
-void Renderer::saveTarga(const string & filename)
+void Renderer::saveTarga(const std::string & filename)
 {
 #ifdef WRITE_RAW
     // std::ofstream out("test.out");
@@ -206,7 +208,7 @@ void Renderer::saveTarga(const string & filename)
     for(int i = 0; i < height; i++, buf += linelen) {
         int f = write(fd, buf, linelen);
         if (f != linelen) {
-            cerr << "Write wrong ammmount " << fd << "," << f << "," << blen << endl << flush;
+            cerr << "Write wrong ammmount " << fd << "," << f << "," << blen << std::endl << std::flush;
             perror("write");
         }
     }

@@ -1,0 +1,5 @@
+2003-06-23  Al Riddoch  <alriddoch@zepler.org>
+
+	* src/edifice.cpp, src/edifice.h: Update for strict ISO C++.
+
+	* Update build to work more cleanly.

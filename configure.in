@@ -8,6 +8,7 @@ AM_INIT_AUTOMAKE("edifice", "0.0.0")
 
 dnl Test for GNU libtool
 
+AM_DISABLE_STATIC
 AM_PROG_LIBTOOL
 
 dnl Test for C++ compiler
@@ -90,7 +91,10 @@ CPPFLAGS="$CPPFLAGS $SDL_CFLAGS"
 LIBS="$LIBS $SDL_LIBS"
 
 AC_CHECK_LIB(SDL_image,IMG_Load)
-AC_CHECK_LIB(GL,OSMesaCreateContext)
+AC_CHECK_LIB(GL,OSMesaCreateContext, ,
+[
+    AC_MSG_ERROR(Unable to find OSMesaCreateContext in libGL. Your OpenGL implementation must be Mesa for edifice to work.)
+])
 AC_CHECK_LIB(GLU,main)
 AC_CHECK_LIB(glut,main)
 

@@ -32,10 +32,10 @@ class Renderer {
     Renderer();
     ~Renderer();
 
-    bool loadTexture(const string & name, const string & file);
+    bool loadTexture(const std::string & name, const std::string & file);
     bool setBuffer() { return false; }
     void render(double, double, double);
-    void saveTarga(const string & filename);
+    void saveTarga(const std::string & filename);
 
     static const double meterSize = 40.2492;
 };
