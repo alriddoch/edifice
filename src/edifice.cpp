@@ -104,8 +104,8 @@ SDL_Surface * Renderer::imageTransform(SDL_Surface * image)
 // If you've found this code useful, please let me know.
 {
     Uint8 *rowhi, *rowlo;
-    Uint8 *tmpbuf, tmpch;
-    int i, j;
+    Uint8 *tmpbuf; //, tmpch;
+    int i; // , j;
 
     // GL surfaces are upsidedown and RGB, not BGR :-)
     tmpbuf = (Uint8 *)malloc(image->pitch);

@@ -1,3 +1,9 @@
+2003-12-03  Al Riddoch  <alriddoch@zepler.org>
+
+	* src/edifice.cpp: Remove unused variables.
+
+	* Update configure.in to work a bit more sanely.
+
 2003-06-24  Al Riddoch  <alriddoch@zepler.org>
 
 	* Modify check so OSMesa can be detected in its own lib.
