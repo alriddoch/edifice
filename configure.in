@@ -1,0 +1,105 @@
+dnl Initialise autoconf
+
+AC_INIT(src/edifice.cpp)
+
+dnl Initialise automake
+
+AM_INIT_AUTOMAKE("edifice", "0.0.0")
+
+dnl Test for GNU libtool
+
+AM_PROG_LIBTOOL
+
+dnl Test for C++ compiler
+
+AC_PROG_CXX
+
+CFLAGS='-Wall -g -I/usr/X11R6/include'
+CXXFLAGS='-Wall -g -I/usr/X11R6/include'
+LIBS='-L/usr/X11R6/lib -L/usr/local/lib'
+
+dnl Test for ANSI standard language features
+
+dnl Test for C++ bool keyword
+
+AC_MSG_CHECKING([for C++ bool keyword])
+AC_LANG_SAVE
+AC_LANG_CPLUSPLUS
+AC_CACHE_VAL(ac_cv_feature_bool,
+[
+    AC_TRY_COMPILE(,
+    [
+        bool t = true, f = false;
+    ],
+    [
+        ac_cv_feature_bool=yes
+    ],
+    [
+        ac_cv_feature_bool=no
+    ])
+])
+
+if test "$ac_cv_feature_bool" = yes ; then
+    AC_MSG_RESULT(yes)
+else
+    AC_MSG_RESULT(no)
+fi
+
+AC_LANG_RESTORE
+
+dnl Test for C++ namespaces
+
+AC_MSG_CHECKING([for C++ namespaces])
+AC_LANG_SAVE
+AC_LANG_CPLUSPLUS
+AC_CACHE_VAL(ac_cv_feature_namespaces,
+[
+    AC_TRY_COMPILE(
+    [
+        namespace foo { int i; }
+        namespace bar { int i; }
+        namespace baz { int i; }
+
+        using namespace foo;
+        using bar::i;
+    ],
+    [
+        foo::i = 1;
+        bar::i = 2;
+        baz::i = 3;
+    ],
+    [
+        ac_cv_feature_namespaces=yes
+    ],
+    [
+        ac_cv_feature_namespaces=no
+    ])
+])
+
+if test "$ac_cv_feature_namespaces" = yes ; then
+    AC_MSG_RESULT(yes)
+else
+    AC_MSG_RESULT(no)
+fi
+
+AC_LANG_RESTORE
+
+SDL_VERSION=1.0.0
+AM_PATH_SDL($SDL_VERSION)
+CFLAGS="$CFLAGS $SDL_CFLAGS"
+CPPFLAGS="$CPPFLAGS $SDL_CFLAGS"
+CXXFLAGS="$CXXFLAGS $SDL_CFLAGS"
+LIBS="$LIBS $SDL_LIBS"
+
+AC_CHECK_LIB(SDL_image,IMG_Load)
+AC_CHECK_LIB(GL,OSMesaCreateContext)
+AC_CHECK_LIB(GLU,main)
+AC_CHECK_LIB(glut,main)
+
+dnl Generate files
+
+AC_OUTPUT([
+	Makefile
+	src/Makefile
+	tools/Makefile
+])

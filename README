@@ -1,0 +1,2 @@
+This is edifice, a library which uses off-screen Mesa GL to render building
+block for use in isometric clients.

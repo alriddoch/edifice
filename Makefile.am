@@ -1,0 +1,3 @@
+SUBDIRS = src tools
+
+EXTRA_DIST = AUTHORS README
